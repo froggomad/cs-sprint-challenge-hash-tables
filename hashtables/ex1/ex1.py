@@ -1,26 +1,42 @@
 def get_indices_of_item_weights(weights, length, limit):
-    """
-    YOUR CODE HERE
-    """
-    weight_dict = {}
-    #TODO: O(1)
+    d = {}    
+    for index, num in enumerate(weights):
+        d[num] = index
+
     for index, weight in enumerate(weights):
-        for next_index, next_weight in enumerate(weights):
-            if index != next_index:
-                if index > next_index:
-                    first = index
-                    second = next_index
-                else:
-                    first = next_index
-                    second = index
+        target = limit - weight
+        if target in d:
+            next_index = d[target]
 
-                weight_dict[weight+next_weight] = (first, second)
-    try:
-        return weight_dict[limit]
-    except:
-        return None
+            if index > next_index:
+                first = index
+                second = next_index
+            else:
+                first = next_index
+                second = index
 
-weights_4 = [12, 6, 7, 14, 19, 3, 0, 25, 40]
-answer_4 = get_indices_of_item_weights(weights_4, 9, 7)
+            return (first, second)
+    return None
 
-print(answer_4)
+    # O(n^2):
+
+    # for index, weight in enumerate(weights):
+    #     for next_index, next_weight in enumerate(weights):
+    #         if index != next_index:
+    #             if index > next_index:
+    #                 first = index
+    #                 second = next_index
+    #             else:
+    #                 first = next_index
+    #                 second = index
+
+    #             weight_dict[weight+next_weight] = (first, second)
+    # try:
+    #     return weight_dict[limit]
+    # except:
+    #     return None
+
+weights_2 = [4, 4]
+answer_2 = get_indices_of_item_weights(weights_2, 2, 8)
+
+print(answer_2)
